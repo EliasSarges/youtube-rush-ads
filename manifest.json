@@ -1,0 +1,12 @@
+{
+  "version": "1.0.0",
+  "name": "Skip ADS",
+  "author": "Elias Sarges",
+  "description": "skip ads videos by increasing video speed",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["webRequest"],
+  "host_permissions": ["*://*.youtube.com/watch*"]
+}
