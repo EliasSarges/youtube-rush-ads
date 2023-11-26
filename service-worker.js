@@ -8,7 +8,7 @@ chrome.webRequest.onBeforeRequest.addListener(
     if (type !== bannerAdsType) {
       console.info("is playing an ad");
 
-      const retries = 5;
+      const retries = 10;
       const message = "skip-ad";
 
       sendMessageWithRetry(message, retries);
