@@ -6,7 +6,7 @@
   "manifest_version": 3,
   "content_scripts": [
     {
-      "matches": ["*://*.youtube.com/watch*"],
+      "matches": ["*://*.youtube.com/*"],
       "js": ["scripts/content.js"]
     }
   ],
