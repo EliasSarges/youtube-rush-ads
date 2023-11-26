@@ -33,14 +33,14 @@ const sendMessageWithRetry = async (message, tries) => {
 
       console.info(`trying connection: ${tries}`);
 
-      await sleep(200);
-
       await chrome.tabs.sendMessage(activeTab.id, message);
     }
   } catch (error) {
     const newTryNumber = (tries = tries - 1);
 
     console.error(`${error} \nretrying: ${newTryNumber}`);
+
+    await sleep(200);
 
     sendMessageWithRetry(message, newTryNumber);
   }
