@@ -1,12 +1,18 @@
 {
   "version": "1.0.0",
-  "name": "Skip ADS",
+  "name": "Youtube Rush AD",
   "author": "Elias Sarges",
-  "description": "skip ads videos by increasing video speed",
+  "description": "chrome extension to skip youtube ad by increasing video speed",
   "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": ["*://*.youtube.com/watch*"],
+      "js": ["scripts/content.js"]
+    }
+  ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "service-worker.js"
   },
-  "permissions": ["webRequest"],
+  "permissions": ["webRequest", "activeTab"],
   "host_permissions": ["*://*.youtube.com/watch*"]
 }
