@@ -23,6 +23,7 @@ const speedUpVideo = (playbackRate) => {
     return;
   }
 
+  videoElement.muted = true;
   videoElement.playbackRate = playbackRate;
 };
 
