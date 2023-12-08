@@ -13,6 +13,6 @@
   "background": {
     "service_worker": "service-worker.js"
   },
-  "permissions": ["webRequest", "activeTab"],
+  "permissions": ["webRequest", "tabs"],
   "host_permissions": ["*://*.youtube.com/watch*"]
 }
