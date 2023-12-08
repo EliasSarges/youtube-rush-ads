@@ -2,16 +2,16 @@ const REQUEST_ENDPOINT_PATTERN = "*://*.youtube.com/pagead/adview*";
 
 // monitoring network requests
 chrome.webRequest.onBeforeRequest.addListener(
-  async ({ type }) => {
+  async ({ type, tabId }) => {
     const bannerAdsType = "image";
 
     if (type !== bannerAdsType) {
       console.info("is playing an ad");
 
-      const retries = 10;
+      const tries = 10;
       const message = "skip-ad";
 
-      sendMessageWithRetry(message, retries);
+      sendMessageWithRetry({ tabId, message, tries });
     }
   },
   {
@@ -19,30 +19,22 @@ chrome.webRequest.onBeforeRequest.addListener(
   }
 );
 
-const sendMessageWithRetry = async (message, tries) => {
+const sendMessageWithRetry = async ({ tabId, message, tries }) => {
   try {
-    const [activeTab] = await chrome.tabs.query({
-      active: true,
-      currentWindow: true,
-    });
-
-    if (activeTab) {
-      if (tries <= 0) {
-        return;
-      }
-
-      console.info(`trying connection: ${tries}`);
-
-      await chrome.tabs.sendMessage(activeTab.id, message);
+    if (!tabId || tries <= 0) {
+      return;
     }
+
+    console.info(`trying connection: ${tries}`);
+
+    await chrome.tabs.sendMessage(tabId, message);
   } catch (error) {
     const newTryNumber = tries - 1;
 
     console.error(`${error} \nretrying: ${newTryNumber}`);
 
     await sleep(200);
-
-    sendMessageWithRetry(message, newTryNumber);
+    sendMessageWithRetry({ tabId, message, tries: newTryNumber });
   }
 };
 
